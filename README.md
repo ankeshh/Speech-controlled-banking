@@ -1,4 +1,4 @@
-# :dollar: E-Banking using Three-Factor Authentication (3FA)
+# :dollar: E-Banking using Voice Commands
 
 Name: Zenith Bank <br/>
 Developers: Ankesh Singh ([@ankeshh](https://github.com/ankeshh)), Nevin Mathews ([@NevinTroy](https://github.com/NevinTroy))
