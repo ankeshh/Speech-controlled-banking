@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { CardIcon, DashboardIcon, IconText, LocationIcon, SideGrid, SideGridElementComponent, SideGridElements, 
-    TransactionIcon, AccountIcon, BeneficiaryIcon, MessageIcon,SettingsIcon} from "../HomeElements";
+    TransactionIcon, AccountIcon, BeneficiaryIcon, MessageIcon,SettingsIcon, VoiceIcon} from "../HomeElements";
 
 class SideMenu extends React.Component {
     render() {
@@ -9,6 +9,10 @@ class SideMenu extends React.Component {
             <>
                 <SideGrid>
                     <SideGridElementComponent>
+                        <SideGridElements>
+                            <VoiceIcon/>
+                            <IconText to="/voice">Use Voice</IconText>
+                        </SideGridElements>
                         <SideGridElements>
                             <DashboardIcon/>
                             <IconText to="/home">Dashboard</IconText>

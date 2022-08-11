@@ -47,8 +47,8 @@ class Register extends React.Component{
             .then(response=>response.json())
             .then(user=>{
                 if(user){
-                    this.props.loadUser(user);
-                    window.location.href = '/thirdFactorRegistration';
+                    // this.props.loadUser(user);
+                    window.location.href = '/signin';
                 }
             })
             .catch(err=>console.log(err))

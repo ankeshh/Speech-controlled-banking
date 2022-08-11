@@ -7,6 +7,7 @@ import {AiFillNotification} from "react-icons/ai"
 import {IoIosContacts} from "react-icons/io";
 import { IoSettingsSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { MdKeyboardVoice } from "react-icons/md";
 
 
 export const ComponentWrapper = styled.div`
@@ -81,6 +82,14 @@ export const IconText = styled(Link)`
     color: white;
     font-size: 20px;
     text-decoration: none;
+    cursor: pointer;
+`;
+
+export const VoiceIcon = styled(MdKeyboardVoice)`
+    color: #01bf71;
+    height: 30px;
+    width: auto;
+    padding-right: 10px;
     cursor: pointer;
 `;
 

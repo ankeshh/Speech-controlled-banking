@@ -23,6 +23,7 @@ import EditDetails from './components/Home/Settings/EditDetails';
 import ChangePassword  from './components/Home/Settings/ChangePassword';
 import HomeNavBar from './components/Home/modules/NavBar/HomeNavBar';
 import HomeFooter from './components/Home/modules/Footer/HomeFooter';
+import Voice from './components/voice/Voice';
 
 
 class App extends React.Component{
@@ -84,6 +85,7 @@ class App extends React.Component{
                   <Route path='/thirdFactorRegistration' exact><ThirdFactorRegistration user={this.state.user} /></Route>
                   <Route path='/thirdFactorSignin' exact><ThirdFactorSignin user={this.state.user} /></Route>
                   <Route path='/OTP' exact><OTP user={this.state.user} /></Route>
+                  <Route path='/voice' exact><Voice/></Route>
                   {/* <Route path='/location' exact><OurLocation/></Route> */}
                   <Route path='/settings' exact> <Settings user={this.state.user}/></Route>
                   <Route path='/settings/editDetails' exact> <EditDetails user={this.state.user}/></Route>

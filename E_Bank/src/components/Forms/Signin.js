@@ -31,7 +31,7 @@ class Signin extends React.Component {
         .then(user => {
             if(user.id){
                 this.props.loadUsers(user);
-                window.location.href = '/OTP';
+                window.location.href = '/home';
             }
             else
                 alert("Enter valid username/password");

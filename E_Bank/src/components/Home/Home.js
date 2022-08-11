@@ -35,7 +35,7 @@ class Home extends React.Component{
     }
 
     componentDidMount() {
-        ;
+        
         fetch(`http://localhost:3000/totalbalance/${this.props.user.id}`)
         .then(response => response.json())
         .then(balance => {
@@ -74,9 +74,9 @@ class Home extends React.Component{
                         <HeadingText>Welcome {this.props.user.name}</HeadingText>
                         <SubText>Here is a quick summary of your account</SubText>
                     </Heading>
-                    <TransactionInfoGrid>
+                    {/* <TransactionInfoGrid>
                         <HomeTransChart user={this.props.user.id}/>
-                    </TransactionInfoGrid>
+                    </TransactionInfoGrid> */}
                     <CardInfoGrid>
                         <MessageCountWrapper>
                             <MessageCountText>New messages</MessageCountText>
@@ -89,12 +89,12 @@ class Home extends React.Component{
                                 <BalanceStatement to="/user/statement">Statement</BalanceStatement>
                             </AmountCotainer>
                         </BalanceGrid>
-                        <TopCard>
+                        {/* <TopCard>
                             <TopCardText>Your Top Card</TopCardText>
                              {   this.state.ready ? <HomeCard cards={this.state.cardDetails} /> :
                                 void("0")
                                 }
-                        </TopCard>
+                        </TopCard> */}
                     </CardInfoGrid>
                     <OtherServicesGrid> </OtherServicesGrid>
                 </ComponentWrapper>
