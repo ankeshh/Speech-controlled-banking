@@ -9,7 +9,7 @@ import Cards from './components/Home/Services/Cards';
 import AddCard from './components/Home/Services/Cards/AddCard';
 import Transaction from './components/Home/Services/Transaction/Transaction';
 import TransactionHistory from './components/Home/Services/Transaction/TransactionHistory';
-// import OurLocation from './components/Home/Services/Location/OurLocation';
+import OurLocation from './components/Home/Services/Location/OurLocation';
 import OTP from './components/OTP';
 import ThirdFactorRegistration  from './components/thirdFactor/ThirdFactorRegistration';
 import ThirdFactorSignin  from './components/thirdFactor/ThirdFactorSignin';
@@ -86,7 +86,7 @@ class App extends React.Component{
                   <Route path='/thirdFactorSignin' exact><ThirdFactorSignin user={this.state.user} /></Route>
                   <Route path='/OTP' exact><OTP user={this.state.user} /></Route>
                   <Route path='/voice' exact><Voice/></Route>
-                  {/* <Route path='/location' exact><OurLocation/></Route> */}
+                  <Route path='/location' exact><OurLocation/></Route>
                   <Route path='/settings' exact> <Settings user={this.state.user}/></Route>
                   <Route path='/settings/editDetails' exact> <EditDetails user={this.state.user}/></Route>
                   <Route path='/settings/changePassword' exact> <ChangePassword user={this.state.user}/></Route>

@@ -33,21 +33,21 @@ const db=knex({
     client:'pg',
     connection:{
         host:'127.0.0.1',
-        user:'YOUR_USERNAME',
-        password:'YOUR_PASSWORD',
-        database:'YOUR_DB'
+        user:'ankesh',
+        password:'imageaiproject',
+        database:'ebank'
     }
 });
-const transporter = nodemailer.createTransport({
-    service:"Gmail",
-    auth:{
-        user: 'YOUR_GMAIL_USERNAME',
-        pass: 'YOUR_PASSWORD'
-    },
-    tls:{
-        rejectUnauthorized:false
-    }
-});
+// const transporter = nodemailer.createTransport({
+//     service:"Gmail",
+//     auth:{
+//         user: 'YOUR_GMAIL_USERNAME',
+//         pass: 'YOUR_PASSWORD'
+//     },
+//     tls:{
+//         rejectUnauthorized:false
+//     }
+// });
 
 
 app.get('/',(req,res)=>{

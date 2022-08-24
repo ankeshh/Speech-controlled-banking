@@ -24,8 +24,8 @@ const LaunchPage= () => {
             <AboutUs {...Obj1}/>
             <AboutUs {...Obj2} />
             <Services/>
-            <OurDevelopers {...Obj4}/>
-            <OurDevelopers {...Obj3}/>
+            {/* <OurDevelopers {...Obj4}/>
+            <OurDevelopers {...Obj3}/> */}
             <Footer/>
         </Router>
     )

@@ -26,7 +26,7 @@ const handleRegister=(req,res,db,bcrypt,saltRounds)=>{
                 acc_no: users[0].acc_no,
                 acc_owner: users[0].id,
                 balance: 500,
-                acc_type: 'Spending',
+                acc_type: 'Saving',
                 acc_label:  'Default account',
                 acc_limit: 50
             }).then(res.json(users[0]));
