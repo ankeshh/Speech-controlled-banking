@@ -33,8 +33,7 @@ const HomeCard =(props)=>{
                             </CardChip>
                             <CardNumber  yellowTxt={yellowTxt}>
                                 { `${cards.card_number.slice(0,4)} ${cards.card_number.slice(4,8)}
-                                    ${cards.card_number.slice(8,12)} ${cards.card_number.slice(12,16)}
-                                    `
+                                    ${cards.card_number.slice(8,12)} ${cards.card_number.slice(12,16)}`
                                 }
                             </CardNumber>
                             <CardMerchant></CardMerchant>

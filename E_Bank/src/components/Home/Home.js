@@ -89,12 +89,12 @@ class Home extends React.Component{
                                 <BalanceStatement to="/user/statement">Statement</BalanceStatement>
                             </AmountCotainer>
                         </BalanceGrid>
-                        <TopCard>
+                        /* <TopCard>
                             <TopCardText>Your Card</TopCardText>
                              {   this.state.ready ? <HomeCard cards={this.state.cardDetails} /> :
                                 void("0")
                                 }
-                        </TopCard>
+                        </TopCard> */
                     </CardInfoGrid>
                     <OtherServicesGrid> </OtherServicesGrid>
                 </ComponentWrapper>

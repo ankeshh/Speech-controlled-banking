@@ -28,6 +28,8 @@ class Transaction extends React.Component{
             senderAccount: 0,
             receiverAccount: 0,
             amount: 0,
+            info: '',
+            category: '',
             benef_form: true,
             benef: [],
             user_acc: [],
@@ -64,6 +66,22 @@ class Transaction extends React.Component{
         if(this.state.amount > this.state.acc_selected.limit)
             alert('The amount entered exceeds the maximum spend limit. Enter value within limit and try again.')
         else{
+            var url = "https://api.uclassify.com/v1/uClassify/Topics/classify/?readKey=OFOaYEiFgsN3&text=";
+            var arr = this.state.info.trim().split(" ");
+            for (let i = 0; i < arr.length-1; i++) {
+                url += arr[i] + "+";
+              }
+            url+=arr[arr.length-1];
+            fetch(url,{
+                mode:"no-cors"
+            })
+                .then(response=>response.json())
+                .then(data=> {
+                    console.log(data);
+                })
+                .catch(err => console.log(err,"classify error"));
+
+            //UNCOMMENT LATER
             fetch('http://localhost:3000/transaction', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -71,7 +89,8 @@ class Transaction extends React.Component{
                     sender_acc: this.state.senderAccount,
                     receiver_acc: this.state.receiverAccount,
                     amount: this.state.amount,
-                    transfer_fee: this.state.benef_selected.transfer_fee
+                    transfer_fee: this.state.benef_selected.transfer_fee,
+                    transfer_info: this.state.info
                 })
             })
             .then(response => response.json())
@@ -172,6 +191,8 @@ class Transaction extends React.Component{
                                         <OptionInput value="DEFAULT" disabled>Select account</OptionInput>
                                         {AccArray}
                                     </OptionText>
+                                    <FieldText>Transaction Info:</FieldText>
+                                    <FieldInput onChange={this.onValueChange} id="info"></FieldInput>
                                     <FieldText>Amount to transfer:</FieldText>
                                     <FieldInput onChange={this.onValueChange} id="amount"></FieldInput>
                                     <ButtonField>
@@ -212,6 +233,8 @@ class Transaction extends React.Component{
                                     <FieldText>Transfer to account:</FieldText>
                                     <FieldInput type='number' onChange={this.onValueChange} id='receiverAccount' required/>
                                     
+                                    <FieldText>Transaction Info:</FieldText>
+                                    <FieldInput onChange={this.onValueChange} id="info"></FieldInput>
                                     
                                     <FieldText>Amount to transfer:</FieldText>
                                     <FieldInput type='number' onChange={this.onValueChange} id='amount' required/>
