@@ -17,7 +17,7 @@ export const Heading = styled.div`
     grid-area: 1 / 2 / 2 / 6; 
 `;
 
-export const listenButton = styled.h5`
+export const useless = styled.h5`
     border-radius: 50px;
     background: black;
     white-space: nowrap;
