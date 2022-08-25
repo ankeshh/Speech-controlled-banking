@@ -14,6 +14,12 @@ const handleDeleteMessage=(req,res,db)=>{
     .catch(err=>res.json(err.message));
 }
 
+const handleDeleteAllMessage=(req,res,db)=>{
+    db('message').del()
+    .then(res.json('Deleted'))
+    .catch(err=>res.json(err.message));
+}
+
 const handleMessageCount=(req,res,db)=>{
     const {user_id}=req.params;
     db('message').count('*').where('user_id','=',user_id)
@@ -24,6 +30,6 @@ const handleMessageCount=(req,res,db)=>{
 module.exports={
     handleGetMessage,
     handleDeleteMessage,
-    handleMessageCount
-    
+    handleMessageCount,
+    handleDeleteAllMessage
 }

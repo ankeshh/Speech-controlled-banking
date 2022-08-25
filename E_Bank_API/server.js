@@ -80,6 +80,7 @@ app.get('/closeaccount/:acc_num',(req,res)=>{account.handleCloseAccount(req,res,
 app.get('/totalbalance/:id',(req,res)=> {account.handleTotalBalance(req,res,db)});
 app.get('/message/:id',(req,res)=> {message.handleGetMessage(req,res,db)});
 app.get('/deletemessage/:msg_id',(req,res)=> {message.handleDeleteMessage(req,res,db)});
+app.get('/deleteAllMessage',(req,res)=>{message.handleDeleteAllMessage(req,res,db)});
 app.get('/messagecount/:user_id',(req,res)=> {message.handleMessageCount(req,res,db)});
 app.get('/userDetails/:id',(req,res)=>{settings.getUserDetails(req,res,db)});
 app.post('/updateUser/:id',(req,res)=>{settings.updateUser(req,res,db)});

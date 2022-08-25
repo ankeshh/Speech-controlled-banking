@@ -56,6 +56,7 @@ class Transaction extends React.Component{
         fetch(`http://localhost:3000/beneficiarylist/${this.props.user.id}`)
         .then(respone => respone.json())
         .then(log => {
+            console.log(log)
             this.setState({benef: log});
         });
     }
