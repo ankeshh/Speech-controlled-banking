@@ -5,7 +5,7 @@ const cors=require('cors');
 const luxon=require('luxon');
 const speakeasy=require('speakeasy');
 const nodemailer=require('nodemailer');
-
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const app=express();
 
 const register=require('./controllers/register');
@@ -66,6 +66,7 @@ app.post('/genCard/:id',(req,res)=>{card.genCard(req,res,db)});
 app.get('/getCard/:id',(req,res)=>{card.getCard(req,res,db)});
 app.get('/getAcc/:id',(req,res)=>{card.getAcc(req,res,db)});
 app.post('/transaction', (req,res) => {transaction.handleTransaction(req,res,db)});
+app.post('/URL',(req,res)=>{transaction.URL(req,res,fetch)})
 app.get('/transactionhistory/:id', (req,res) => {transactionhistory.handleTransactionHistory(req,res,db)});
 app.get('/getbalance/:id',(req,res)=> {getbalance.handleGetBalance(req,res,db)});
 app.get('/getaccount/:id',(req,res)=> {account.handleAccountInfo(req,res,db)});
@@ -92,6 +93,6 @@ app.get('/deletebill/:id',(req,res)=>{billing.handleDeleteBill(req,res,db)});
 app.get('/checkdue/:id',(req,res)=>{billing.handleCheckDues(req,res,db)});
 
 app.listen(port,()=>{
-    console.log(`Sever running`);
+    console.log(`Server running`);
 })
 

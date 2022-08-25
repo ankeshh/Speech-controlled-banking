@@ -1,23 +1,37 @@
+const { response } = require("express");
+
+const URL=(req,res,fetch)=>{
+    const {url} = req.body;
+    let ApiURL = "https://api.uclassify.com/v1/uClassify/Topics/classify/?readKey=OFOaYEiFgsN3&text=";
+    for (let i = 0; i < url.length-1; i++) {
+        ApiURL += url[i] + "+";
+    }
+    ApiURL+=url[url.length-1];
+    let category="";
+    fetch(ApiURL)
+        .then(response=>response.json())
+        .then(data=>{
+            let max=data.Arts;
+            for (prop in data){
+                if(data[prop] > max){
+                    max=data[prop];
+                    category=prop;
+                }
+            }
+        })
+        .catch(err=>err.mesage())
+        setTimeout(()=>{
+            res.json(category)
+        },2000)
+}
+
 const handleTransaction = (req,res,db) => {
-    const {sender_acc, receiver_acc, amount, transfer_fee, transfer_info} = req.body;
+    const {sender_acc, receiver_acc, amount, transfer_fee, transfer_info,transfer_category} = req.body;
     if(!sender_acc || !receiver_acc || !amount || sender_acc === receiver_acc)
         return res.status(400).json('Check your details and try again');
     console.log(req.body);
     //do text categorisation here 
-
-    let url = "https://api.uclassify.com/v1/uClassify/Topics/classify/?readKey=OFOaYEiFgsN3&text=";
-    let arr = transfer_info.trim().split(" ");
-            for (let i = 0; i < arr.length-1; i++) {
-                url += arr[i] + "+";
-              }
-            url+=arr[arr.length-1];
-            fetch(url)
-                .then(response=>response.json())
-                .then(data=> {
-                    console.log(data);
-                })
-                .catch(err => console.log(err,"classify error"));
-
+    console.log(transfer_category);
 
     db.select('acc_no','balance','acc_owner','acc_type','acc_limit').from('acc_balance').where('acc_no','=',sender_acc).then(data => {
         if(parseInt(data[0].balance)>=parseInt(amount)){
@@ -66,7 +80,9 @@ const handleTransaction = (req,res,db) => {
                         from_acc: sender_acc,
                         to_acc: receiver_acc,
                         amount: amount,
-                        balance: remainBalance
+                        balance: remainBalance,
+                        info: transfer_info,
+                        category: transfer_category
                     }).returning('*').then(
                         db.select('acc_no','balance','acc_owner').from('acc_balance').where('acc_no','=',receiver_acc).then(data =>{
                             console.log(data[0].balance);
@@ -80,7 +96,8 @@ const handleTransaction = (req,res,db) => {
                                     to_acc: receiver_acc,
                                     amount: amount,
                                     balance: newBalance,
-                                    info: transfer_info
+                                    info: transfer_info,
+                                    category: transfer_category
                                 }).then(
                                     db('message')
                                     .insert({
@@ -112,5 +129,5 @@ const handleTransaction = (req,res,db) => {
 }
 
 module.exports = {
-    handleTransaction
+    handleTransaction,URL
 };

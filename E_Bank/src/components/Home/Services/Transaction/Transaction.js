@@ -58,7 +58,6 @@ class Transaction extends React.Component{
         fetch(`http://localhost:3000/beneficiarylist/${this.props.user.id}`)
         .then(respone => respone.json())
         .then(log => {
-            console.log(log)
             this.setState({benef: log});
         });
     }
@@ -67,40 +66,42 @@ class Transaction extends React.Component{
         if(this.state.amount > this.state.acc_selected.limit)
             alert('The amount entered exceeds the maximum spend limit. Enter value within limit and try again.')
         else{
-            var url = "https://api.uclassify.com/v1/uClassify/Topics/classify/?readKey=OFOaYEiFgsN3&text=";
             var arr = this.state.info.trim().split(" ");
-            for (let i = 0; i < arr.length-1; i++) {
-                url += arr[i] + "+";
-              }
-            url+=arr[arr.length-1];
-            fetch(url,{
-                mode:"no-cors"
-            })
-                .then(response=>response.json())
-                .then(data=> {
-                    console.log(data);
-                })
-                .catch(err => console.log(err,"classify error"));
-
-            //UNCOMMENT LATER
-            fetch('http://localhost:3000/transaction', {
+            
+            fetch(`http://localhost:3000/URL`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    sender_acc: this.state.senderAccount,
-                    receiver_acc: this.state.receiverAccount,
-                    amount: this.state.amount,
-                    transfer_fee: this.state.benef_selected.transfer_fee,
-                    transfer_info: this.state.info
+                body: JSON.stringify({ 
+                    url:arr
+                })
+            })   
+            .then(response=>response.json())
+            .then(data=>{
+                console.log(data);
+                this.state.category=data;
+                console.log(this.state.category);
+            })
+            .then(()=>{
+                fetch('http://localhost:3000/transaction', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        sender_acc: this.state.senderAccount,
+                        receiver_acc: this.state.receiverAccount,
+                        amount: this.state.amount,
+                        transfer_fee: this.state.benef_selected.transfer_fee,
+                        transfer_info: this.state.info,
+                        transfer_category: this.state.category
+                    })
+                })
+                .then(response => response.json())
+                .then(status => {
+                    alert(status);
+                    window.location.reload(false);
                 })
             })
-            .then(response => response.json())
-            .then(status => {
-                alert(status);
-                window.location.reload(false);
-            })
             .catch(err => console.log(err));
-        }   
+            }   
     }
 
     changeForm = () => {
