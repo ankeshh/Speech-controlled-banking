@@ -16,3 +16,21 @@ export const DeleteText = styled.h5`
 export const Heading = styled.div`
     grid-area: 1 / 2 / 2 / 6; 
 `;
+
+export const listenButton = styled.h5`
+    border-radius: 50px;
+    background: black;
+    white-space: nowrap;
+    padding: 10px 22px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+`;
+
+export const trans = styled.h4`
+
+`;
