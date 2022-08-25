@@ -28,6 +28,8 @@ class Transaction extends React.Component{
             senderAccount: 0,
             receiverAccount: 0,
             amount: 0,
+            info: '',
+            category: '',
             benef_form: true,
             benef: [],
             user_acc: [],
@@ -56,7 +58,6 @@ class Transaction extends React.Component{
         fetch(`http://localhost:3000/beneficiarylist/${this.props.user.id}`)
         .then(respone => respone.json())
         .then(log => {
-            console.log(log)
             this.setState({benef: log});
         });
     }
@@ -65,23 +66,42 @@ class Transaction extends React.Component{
         if(this.state.amount > this.state.acc_selected.limit)
             alert('The amount entered exceeds the maximum spend limit. Enter value within limit and try again.')
         else{
-            fetch('http://localhost:3000/transaction', {
+            var arr = this.state.info.trim().split(" ");
+            
+            fetch(`http://localhost:3000/URL`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    sender_acc: this.state.senderAccount,
-                    receiver_acc: this.state.receiverAccount,
-                    amount: this.state.amount,
-                    transfer_fee: this.state.benef_selected.transfer_fee
+                body: JSON.stringify({ 
+                    url:arr
+                })
+            })   
+            .then(response=>response.json())
+            .then(data=>{
+                console.log(data);
+                this.state.category=data;
+                console.log(this.state.category);
+            })
+            .then(()=>{
+                fetch('http://localhost:3000/transaction', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        sender_acc: this.state.senderAccount,
+                        receiver_acc: this.state.receiverAccount,
+                        amount: this.state.amount,
+                        transfer_fee: this.state.benef_selected.transfer_fee,
+                        transfer_info: this.state.info,
+                        transfer_category: this.state.category
+                    })
+                })
+                .then(response => response.json())
+                .then(status => {
+                    alert(status);
+                    window.location.reload(false);
                 })
             })
-            .then(response => response.json())
-            .then(status => {
-                alert(status);
-                window.location.reload(false);
-            })
             .catch(err => console.log(err));
-        }   
+            }   
     }
 
     changeForm = () => {
@@ -173,6 +193,8 @@ class Transaction extends React.Component{
                                         <OptionInput value="DEFAULT" disabled>Select account</OptionInput>
                                         {AccArray}
                                     </OptionText>
+                                    <FieldText>Transaction Info:</FieldText>
+                                    <FieldInput onChange={this.onValueChange} id="info"></FieldInput>
                                     <FieldText>Amount to transfer:</FieldText>
                                     <FieldInput onChange={this.onValueChange} id="amount"></FieldInput>
                                     <ButtonField>
@@ -213,6 +235,8 @@ class Transaction extends React.Component{
                                     <FieldText>Transfer to account:</FieldText>
                                     <FieldInput type='number' onChange={this.onValueChange} id='receiverAccount' required/>
                                     
+                                    <FieldText>Transaction Info:</FieldText>
+                                    <FieldInput onChange={this.onValueChange} id="info"></FieldInput>
                                     
                                     <FieldText>Amount to transfer:</FieldText>
                                     <FieldInput type='number' onChange={this.onValueChange} id='amount' required/>

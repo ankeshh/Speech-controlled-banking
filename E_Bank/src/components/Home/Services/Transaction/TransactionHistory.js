@@ -6,7 +6,7 @@ import {Heading} from "./TransactionElements";
 import {TransTable} from "./TransactionHistoryElements";
 import './TransactionHistory.css';
 
-const colName =  ['From', 'To', 'Amount', 'Date', 'Balance'];
+const colName =  ['From', 'To', 'Amount', 'Date', 'Balance','Category'];
 class TransactionHistory extends React.Component{
     constructor(props){
         super(props);
