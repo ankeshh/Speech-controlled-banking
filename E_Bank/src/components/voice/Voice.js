@@ -39,7 +39,7 @@ const useVoice = ({user}) => {
         limit: 0, 
         used: false
     });
-    const [closeAcc, delAcc] = useState(0);
+    const [closeAcc, delAcc] = useState({account: 0, used: false});
     const [removeBen, delBen] = useState({name: "", used: false});
     const [trans,clearTrans] = useState(0);
 
@@ -90,7 +90,7 @@ const useVoice = ({user}) => {
         },
         {
             command: ["close account :account"],
-            callback: (account) => {delAcc(account)}
+            callback: (account) => {delAcc({accouunt: account, used: true})}
         },
         {
             command: ["add beneficiary :name of bank :bank and account :account"],
@@ -125,16 +125,16 @@ const useVoice = ({user}) => {
         }
     ];
 
-    const pages = ["home","account","beneficiary","transaction","card","messages","settings","statment"];
+    const pages = ["home","account","beneficiary","transaction","card","message","settings","statment"];
     const URLs = {
-        home: "/home",
-        account: "/account",
-        beneficiary: "/beneficiary",
-        transaction: "/transaction",
-        card: "/card",
-        messages: "/message",
-        settings: "/settings",
-        statment: "/user/statement",
+        home: "home",
+        account: "account",
+        beneficiary: "beneficiary",
+        transaction: "transaction",
+        card: "card",
+        message: "message",
+        settings: "settings",
+        statment: "user/statement",
     };
 
     const {transcript, listening, resetTranscript, browserSupportsSpeechRecognition} = useSpeechRecognition({commands});
@@ -145,15 +145,15 @@ const useVoice = ({user}) => {
 
     if(redirectPage){
         if(pages.includes(redirectPage)){
-            window.location.href = `/${redirectPage}`;
-            setTimeout(()=>{window.location.href = `/voice`},10000)
+            window.location.href = `/${URLs[redirectPage]}`;
+            // setTimeout(()=>{window.location.href = `/voice`},10000)
         }
         else {
             alert('Page not found, try again.')
         }
     }
 
-    if(delAcc){
+    if(delAcc.used){
         fetch(`http://localhost:3000/closeaccount/${closeAcc}`)
             .then(response => response.json())
             .then(alert("Account deleted"))
@@ -216,40 +216,40 @@ const useVoice = ({user}) => {
 
     if(account.benef_used){
         // console.log(account)
-        fetch(`http://localhost:3000/beneficiarylist/${user.id}`)
-        .then(respone => respone.json())
-        .then(log => {setBenef(log)})
-        .then(
-            beneficiary.forEach((benef) => {
-                console.log(benef);
-                // if(benef.benef_name === account.benef){
-                //     console.log(benef.benef_acc_no)
-                    // setAcc(previousState => {
-                    //     return {
-                    //         ...previousState,
-                    //         receiver: benef.benef_acc_no,
-                    //         fee: benef.transfer_fee,
-                    //     }
-                    // })
-                // }
-            })
-        ).catch(err=>console.log(err))
+        // fetch(`http://localhost:3000/beneficiarylist/${user.id}`)
+        // .then(respone => respone.json())
+        // .then(log => {setBenef(log)})
         // .then(
-        //     fetch('http://localhost:3000/transaction', {
-        //         method: 'POST',
-        //         headers: {'Content-Type': 'application/json'},
-        //         body: JSON.stringify({
-        //             sender_acc: account.sender,
-        //             receiver_acc: account.receiver,
-        //             amount: account.amount,
-        //             transfer_fee: account.fee
-        //         })
+        //     beneficiary.forEach((benef) => {
+        //         console.log(benef);
+        //         if(benef.benef_name === account.benef){
+        //             console.log(benef.benef_acc_no)
+        //             setAcc(previousState => {
+        //                 return {
+        //                     ...previousState,
+        //                     receiver: benef.benef_acc_no,
+        //                     fee: benef.transfer_fee,
+        //                 }
+        //             })
+        //         }
         //     })
-        //     .then(response => response.json())
-        //     .then(status => {
-        //         alert("Transfered");
-        //     })
-        //     .catch(err => console.log(err))
+        // ).catch(err=>console.log(err))
+        // .then(
+            fetch('http://localhost:3000/transaction', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    sender_acc: account.sender,
+                    receiver_acc: 2083576573,
+                    amount: account.amount,
+                    transfer_fee: 10
+                })
+            })
+            .then(response => response.json())
+            .then(status => {
+                alert("Transfered");
+            })
+            .catch(err => console.log(err))
         // );
     }
 
@@ -278,18 +278,20 @@ const useVoice = ({user}) => {
         fetch(`http://localhost:3000/beneficiarylist/${user.id}`)
         .then(respone => respone.json())
         .then(log => {setBenef(log)})
-            beneficiary.map((benef) => {
-                console.log(benef);
-                // if(benef.benef_name === removeBen.name){
-                //     console.log('ff')
-                    // fetch(`http://localhost:3000/beneficiary/remove/${benef.benef_acc_no}`)
-                    // .then(respone => respone.json())
-                    // .then(log => {
-                    //     alert("Beneficiary deleted")
-                    // });
-                // }
-            })
-    }
+            // beneficiary.map((benef) => {
+            //     console.log(benef);
+            //     if(benef.benef_name === removeBen.name){
+            //         console.log('ff')
+            .then(
+                fetch(`http://localhost:3000/beneficiary/remove/2083576573`)
+                    .then(respone => respone.json())
+                    .then(log => {
+                        alert("Beneficiary deleted")
+                    })
+            )
+        }
+            // })
+    
 
     // if(trans){
     //     // ()=>{resetTranscript} 
@@ -308,7 +310,7 @@ const useVoice = ({user}) => {
                 <button style={{height: '70px', width: '120px', borderRadius: '10px', background: 'black', color: 'white', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer'}} onClick={SpeechRecognition.startListening}>Start</button>
                 <button style={{height: '70px', width: '120px', borderRadius: '10px', background: 'black', color: 'white', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer'}} onClick={SpeechRecognition.stopListening}>Stop</button>
                 <button style={{height: '70px', width: '120px', borderRadius: '10px', background: 'black', color: 'white', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer'}} onClick={resetTranscript}>Reset</button>
-                <h4 style={{color: "black", paddingLeft: '30px', fontSize: '20px', background: 'red'}}>{transcript}</h4>
+                <h4 style={{color: "black", paddingLeft: '30px', fontSize: '20px'}}>{transcript}</h4>
             </ComponentWrapper>
         </>
     )

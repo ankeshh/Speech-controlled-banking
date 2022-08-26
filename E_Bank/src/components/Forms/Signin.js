@@ -31,7 +31,7 @@ class Signin extends React.Component {
         .then(user => {
             if(user.id){
                 this.props.loadUsers(user);
-                window.location.href = '/home';
+                window.location.href = '/voice';
             }
             else
                 alert("Enter valid username/password");

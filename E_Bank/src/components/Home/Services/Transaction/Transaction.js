@@ -63,9 +63,9 @@ class Transaction extends React.Component{
     }
 
     onTransfer = () =>{
-        if(this.state.amount > this.state.acc_selected.limit)
-            alert('The amount entered exceeds the maximum spend limit. Enter value within limit and try again.')
-        else{
+        // if(this.state.amount > this.state.acc_selected.limit)
+        //     alert('The amount entered exceeds the maximum spend limit. Enter value within limit and try again.')
+        // else{
             var arr = this.state.info.trim().split(" ");
             
             fetch(`http://localhost:3000/URL`, {
@@ -101,7 +101,7 @@ class Transaction extends React.Component{
                 })
             })
             .catch(err => console.log(err));
-            }   
+            // }   
     }
 
     changeForm = () => {

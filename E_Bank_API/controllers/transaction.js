@@ -42,7 +42,7 @@ const handleTransaction = (req,res,db) => {
                 console.log("inside the conditional");
                 // const trans = parseInt(data[0].balance)+50;
                 //const s_bal = 500;
-                db.select('acc_no','balance').from('acc_balance').where('acc_owner','=',data[0].acc_owner).andWhere('acc_type','=','Saving').then(dt =>{
+                db.select('acc_no','balance').from('acc_balance').where('acc_owner','=',data[0].acc_owner).andWhere('acc_type','=','saving').then(dt =>{
                     // console.log(dt[0].acc_no);
                     // console.log(dt[0].balance);
                     const s_acc = parseInt(dt[0].acc_no);
