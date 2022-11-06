@@ -5,4 +5,4 @@ Developers: Ankesh Singh ([@ankeshh](https://github.com/ankeshh)), Nevin Mathews
 
 ***
 
-Added a voice controlled layer over ([Zenith Bank](https://github.com/ankeshh/Zenith_Bank)). Use voice commands to navigate through the site and perform tasks.
+Added a voice controlled layer over [Zenith Bank](https://github.com/ankeshh/Zenith_Bank). Use voice commands to navigate through the site and perform tasks.
